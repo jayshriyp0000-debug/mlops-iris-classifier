@@ -11,7 +11,6 @@ logging.basicConfig(
 
 logger = logging.getLogger("validate")
 
-
 EXPECTED_COLUMNS = {
     "sepal length (cm)",
     "sepal width (cm)",
@@ -95,13 +94,10 @@ def validate(input_path: str) -> pd.DataFrame:
 
     # Stop pipeline if validation fails
     if errors:
-
         for error in errors:
             logger.error(error)
 
-        raise DataValidationError(
-            f"Validation failed with {len(errors)} error(s)"
-        )
+        raise DataValidationError("\n".join(errors))
 
     logger.info(
         "Validation PASSED: %d rows, %d columns, "
